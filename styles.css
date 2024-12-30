@@ -1,0 +1,825 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to bottom, #1a2a6c, #2a4858);
+    color: white;
+    overflow-x: hidden;
+}
+
+/* Общие стили для секций */
+section {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 4rem 2rem;
+    box-sizing: border-box;
+}
+
+/* Intro Section */
+.intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 2rem;
+}
+
+.avatar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    width: 300px;
+    height: 300px;
+}
+
+.avatar {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+}
+
+/* Стили для текста */
+.typing-container {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.typing-text {
+    font-size: 1.5rem;
+    display: inline-block;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid white;
+    animation: typing 3.5s steps(40) 1,
+             blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: white }
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    text-align: center;
+}
+
+.mouse {
+    width: 30px;
+    height: 50px;
+    border: 2px solid white;
+    border-radius: 15px;
+    margin: 10px auto;
+    position: relative;
+}
+
+.mouse::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: white;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10px;
+    border-radius: 50%;
+    animation: scroll 1.5s infinite;
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+    .card {
+        padding: 2rem 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .tree-svg {
+        width: 60px;
+    }
+
+    .santa-svg {
+        width: 45px;
+    }
+
+    .card h1 {
+        font-size: 2.2rem;
+    }
+
+    .card-text {
+        font-size: 1.1rem;
+    }
+
+    .message h2 {
+        font-size: 1.8rem;
+    }
+
+    .message p {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 1.5rem 1rem;
+        gap: 1rem;
+    }
+
+    .tree-svg {
+        width: 50px;
+    }
+
+    .santa-svg {
+        width: 40px;
+    }
+
+    .card h1 {
+        font-size: 1.8rem;
+    }
+
+    .card-text {
+        font-size: 1rem;
+    }
+
+    .message h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .message p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+}
+
+/* Interactive Section - Gift Box */
+.gift-box {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+    margin-bottom: 150px;
+}
+
+.gift-container {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #ff4d4d, #ff6666);
+    position: relative;
+    transform-origin: bottom;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    overflow: visible;
+}
+
+.gift-lid {
+    width: 220px;
+    height: 40px;
+    background: linear-gradient(45deg, #ff6666, #ff8080);
+    position: absolute;
+    top: -20px;
+    left: -10px;
+    transform-origin: center;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+.gift-ribbon {
+    position: absolute;
+    width: 30px;
+    height: 100%;
+    background: #ff8080;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.gift-ribbon::before {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 30px;
+    background: #ff8080;
+    top: 50%;
+    left: -85px;
+    transform: translateY(-50%);
+}
+
+.gift-image {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    z-index: 10;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.gift-box.open .gift-lid {
+    transform: translateY(-60px) rotateX(90deg);
+    opacity: 0.6;
+}
+
+.gift-box.open .gift-container {
+    transform: scale(0.8);
+    background: rgba(255, 77, 77, 0.5);
+}
+
+.gift-box.open .gift-image {
+    transform: translate(-50%, -180%) scale(1.2);
+    opacity: 1;
+    animation: float 2s ease-in-out infinite;
+}
+
+.gift-text {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.greeting {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.greeting h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.greeting p {
+    font-size: 1.2rem;
+    color: white;
+    margin-top: 1rem;
+    animation: pulse 2s infinite;
+}
+
+.greeting-text {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.greeting-text h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.greeting-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.close-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.15;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Адаптивные стили для карточки */
+@media (max-width: 768px) {
+    .card {
+        width: 90%;
+        max-width: 350px;
+    }
+
+    .greeting h1 {
+        font-size: 2rem;
+    }
+
+    .greeting p {
+        font-size: 1rem;
+    }
+
+    .greeting-text h2 {
+        font-size: 1.8rem;
+    }
+
+    .greeting-text p {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 95%;
+        max-width: 300px;
+    }
+
+    .greeting h1 {
+        font-size: 1.8rem;
+    }
+
+    .greeting-text h2 {
+        font-size: 1.5rem;
+    }
+
+    .greeting-text p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    .close-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Animations */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: white }
+}
+
+@keyframes scroll {
+    0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+}
+
+/* Snow effect (existing styles) */
+.snow {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.snowflake {
+    position: fixed;
+    background: white;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(1px);
+    animation: snowfall linear forwards;
+}
+
+@keyframes snowfall {
+    from {
+        transform: translateY(-10px);
+    }
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    section {
+        padding: 3rem 1rem;
+        min-height: 100vh;
+    }
+
+    .intro {
+        gap: 1.5rem;
+    }
+
+    .scroll-indicator {
+        bottom: 1rem;
+    }
+
+    .avatar-container {
+        width: 250px;
+        height: 250px;
+    }
+
+    .avatar {
+        width: 250px;
+        height: 250px;
+    }
+
+    .typing-text {
+        font-size: 1.2rem;
+        white-space: normal;
+        border-right: none;
+        animation: none;
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+    }
+
+    .typing-container {
+        padding: 0 2rem;
+    }
+
+    .card {
+        width: 90%;
+        height: 300px;
+    }
+
+    .gift-box {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 150px;
+    }
+
+    .gift-lid {
+        width: 170px;
+        height: 30px;
+        top: -15px;
+        left: -10px;
+    }
+
+    .gift-ribbon {
+        width: 20px;
+    }
+
+    .gift-ribbon::before {
+        width: 150px;
+        height: 20px;
+        left: -65px;
+    }
+
+    .gift-image {
+        width: 120px;
+        height: 120px;
+    }
+
+    .gift-text {
+        font-size: 14px;
+        margin-top: 0.5rem;
+    }
+
+    .card-section {
+        min-height: 100vh;
+    }
+
+    .interactive-section {
+        min-height: 100vh;
+    }
+}
+
+@media (max-width: 480px) {
+    section {
+        padding: 2rem 1rem;
+        min-height: 100vh;
+    }
+
+    .intro {
+        gap: 1rem;
+    }
+
+    .scroll-indicator {
+        bottom: 0.5rem;
+    }
+
+    .avatar-container {
+        width: 200px;
+        height: 200px;
+    }
+
+    .avatar {
+        width: 200px;
+        height: 200px;
+    }
+
+    .typing-text {
+        font-size: 1rem;
+        line-height: 1.4;
+        white-space: normal;
+        border-right: none;
+        animation: fadeIn 1s forwards;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .gift-box {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 120px;
+    }
+
+    .gift-lid {
+        width: 140px;
+        height: 25px;
+        top: -12px;
+        left: -10px;
+    }
+
+    .gift-ribbon {
+        width: 16px;
+    }
+
+    .gift-ribbon::before {
+        width: 120px;
+        height: 16px;
+        left: -52px;
+    }
+
+    .gift-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .gift-text {
+        font-size: 12px;
+    }
+
+    .gift-box.open .gift-image {
+        transform: translate(-50%, -160%) scale(1.2);
+    }
+
+    .mouse {
+        width: 20px;
+        height: 35px;
+        margin: 5px auto;
+    }
+
+    .mouse::before {
+        width: 4px;
+        height: 4px;
+    }
+
+    .card-section {
+        min-height: 100vh;
+    }
+
+    .interactive-section {
+        min-height: 100vh;
+    }
+}
+
+/* Добавляем анимацию парения */
+@keyframes float {
+    0% {
+        transform: translate(-50%, -160%) scale(1.2);
+    }
+    50% {
+        transform: translate(-50%, -180%) scale(1.3);
+    }
+    100% {
+        transform: translate(-50%, -160%) scale(1.2);
+    }
+}
+
+/* Добавляем анимацию свечения */
+.gift-box.open .gift-image {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    animation: float 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0% {
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.7));
+    }
+    100% {
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Message Section */
+.message-section {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.message-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+}
+
+.message-tree {
+    width: 120px;
+    height: auto;
+    position: absolute;
+    top: -30px;
+    left: -40px;
+    opacity: 0.8;
+    transform: rotate(-15deg);
+}
+
+.message-santa {
+    width: 100px;
+    height: auto;
+    position: absolute;
+    bottom: -20px;
+    right: -30px;
+    opacity: 0.8;
+    transform: rotate(10deg);
+}
+
+.message-content {
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.message-content h1 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.message-text {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Добавляем фоновое изображение через псевдоэлемент */
+.message-text::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('img/nika.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1; /* Настройте прозрачность по необходимости */
+    z-index: -1;
+}
+
+/* Обеспечиваем читаемость текста */
+.message-text h2,
+.message-text p {
+    position: relative;
+    z-index: 1;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.message-text h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: white;
+}
+
+.message-text p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Адаптивные стили для message section */
+@media (max-width: 768px) {
+    .message-container {
+        padding: 1.5rem;
+    }
+
+    .message-tree {
+        width: 90px;
+        top: -20px;
+        left: -20px;
+    }
+
+    .message-santa {
+        width: 80px;
+        bottom: -15px;
+        right: -20px;
+    }
+
+    .message-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .message-text h2 {
+        font-size: 1.8rem;
+    }
+
+    .message-text p {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .message-container {
+        padding: 1rem;
+    }
+
+    .message-tree {
+        width: 70px;
+        top: -15px;
+        left: -15px;
+    }
+
+    .message-santa {
+        width: 60px;
+        bottom: -10px;
+        right: -15px;
+    }
+
+    .message-content h1 {
+        font-size: 2rem;
+    }
+
+    .message-text h2 {
+        font-size: 1.5rem;
+    }
+
+    .message-text p {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+}
